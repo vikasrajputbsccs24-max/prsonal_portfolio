@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Vikas Rajput — Computer Science student, developer, and problem solver.">
+  <title>Vikas Rajput | Computer Science Student & Developer</title>
+  <style>
+    /* Vikas Rajput — single-file portfolio (HTML + CSS only) */
+    :root {
+      --bg: #0b0d12;
+      --surface: #121620;
+      --surface-2: #181e2b;
+      --text: #f4f7fb;
+      --muted: #a8b1c2;
+      --line: rgba(255,255,255,.12);
+      --accent: #b6ff5c;
+      --accent-2: #8b7bff;
+      --max: 1120px;
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6; overflow-x: hidden;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+      background:
+        radial-gradient(ellipse at 15% 5%, rgba(139,123,255,.15), transparent 35%),
+        radial-gradient(ellipse at 85% 30%, rgba(182,255,92,.08), transparent 32%);
+    }
+    a { color: inherit; text-decoration: none; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; border-radius: 5px; }
+    .wrap { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
+    .skip-link { position: absolute; left: -9999px; top: 10px; }
+    .skip-link:focus { left: 10px; z-index: 99; background: var(--accent); color: #10130c; padding: 10px 14px; }
+    .nav-shell {
+      position: sticky; top: 0; z-index: 20; backdrop-filter: blur(18px);
+      background: rgba(11,13,18,.78); border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { font-weight: 850; letter-spacing: -.06em; font-size: 1.15rem; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: clamp(14px, 2.5vw, 30px); align-items: center; color: var(--muted); font-size: .9rem; }
+    .nav-links a { transition: color .2s ease; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta { color: var(--bg) !important; background: var(--accent); padding: 10px 15px; border-radius: 999px; font-weight: 800; }
+    .hero { min-height: 690px; display: grid; grid-template-columns: 1.25fr .75fr; align-items: center; gap: 56px; padding-block: 88px 100px; }
+    .eyebrow { display: inline-flex; gap: 10px; align-items: center; color: var(--accent); text-transform: uppercase; letter-spacing: .16em; font-size: .75rem; font-weight: 800; }
+    .eyebrow::before { content: ""; width: 24px; height: 1px; background: currentColor; }
+    h1 { margin: 22px 0; max-width: 760px; font-size: clamp(3.2rem, 7.4vw, 6.6rem); line-height: .98; letter-spacing: -.075em; }
+    .gradient-text { color: var(--accent); }
+    .hero-copy { max-width: 620px; color: var(--muted); font-size: clamp(1rem, 1.6vw, 1.15rem); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 30px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 1px solid var(--line); padding: 13px 19px; border-radius: 999px; font-weight: 750; transition: transform .25s ease, background .25s ease, border-color .25s ease; }
+    .btn:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .btn-primary { background: var(--accent); color: #10130c; border-color: var(--accent); }
+    .btn-primary:hover { background: #caff8b; }
+    .hero-meta { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 42px; color: var(--muted); font-size: .88rem; }
+    .hero-meta strong { display: block; color: var(--text); font-size: 1.05rem; }
+    .visual { position: relative; min-height: 390px; display: grid; place-items: center; animation: float-in .9s both; }
+    .orbit { position: absolute; width: min(100%, 370px); aspect-ratio: 1; border: 1px solid rgba(182,255,92,.26); border-radius: 50%; animation: spin 28s linear infinite; }
+    .orbit::before, .orbit::after { content: ""; position: absolute; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 24px var(--accent); }
+    .orbit::before { top: 15%; left: 14%; }
+    .orbit::after { bottom: 12%; right: 16%; width: 8px; height: 8px; background: var(--accent-2); box-shadow: 0 0 22px var(--accent-2); }
+    .profile-card { width: min(290px, 80%); aspect-ratio: .82; position: relative; z-index: 1; border: 1px solid rgba(255,255,255,.18); border-radius: 30px; padding: 22px; overflow: hidden; background: linear-gradient(145deg, rgba(139,123,255,.23), rgba(18,22,32,.94) 55%); box-shadow: 0 35px 100px rgba(0,0,0,.38); transform: rotate(4deg); transition: transform .4s ease; }
+    .profile-card:hover { transform: rotate(0) translateY(-6px); }
+    .card-top { display: flex; justify-content: space-between; color: var(--muted); font-size: .75rem; }
+    .avatar { margin: 30px auto 20px; width: 125px; height: 125px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #10130c; font-size: 2.6rem; font-weight: 900; letter-spacing: -.08em; box-shadow: 0 0 60px rgba(182,255,92,.18); }
+    .profile-card h2 { text-align: center; margin: 0; font-size: 1.35rem; letter-spacing: -.04em; }
+    .profile-card p { text-align: center; margin: 5px 0 0; color: var(--muted); font-size: .85rem; }
+    .code-chip { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); white-space: nowrap; background: rgba(11,13,18,.78); border: 1px solid var(--line); border-radius: 99px; padding: 7px 12px; font: .75rem ui-monospace, monospace; color: var(--accent); }
+    .floating-tag { position: absolute; z-index: 2; background: var(--surface-2); border: 1px solid var(--line); padding: 10px 14px; border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,.25); font-size: .82rem; animation: bob 5s ease-in-out infinite; }
+    .tag-one { top: 14%; right: -2%; } .tag-two { bottom: 14%; left: -2%; animation-delay: -2s; }
+    section { padding-block: 88px; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 28px; margin-bottom: 36px; }
+    .section-head h2 { font-size: clamp(2rem, 4vw, 3.35rem); letter-spacing: -.065em; line-height: 1.05; margin: 12px 0 0; }
+    .section-head p { max-width: 440px; color: var(--muted); margin: 0; }
+    .about-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 20px; }
+    .panel { border: 1px solid var(--line); border-radius: var(--radius); background: rgba(18,22,32,.76); padding: clamp(22px, 4vw, 34px); }
+    .about-highlight { background: linear-gradient(145deg, rgba(182,255,92,.12), rgba(18,22,32,.8) 65%); }
+    .big-quote { font-size: clamp(1.4rem, 2.7vw, 2.2rem); line-height: 1.25; letter-spacing: -.045em; margin: 0 0 22px; }
+    .muted { color: var(--muted); }
+    .skill-groups { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .skill-group { border: 1px solid var(--line); background: var(--surface); border-radius: 16px; padding: 19px; }
+    .skill-group h3 { font-size: .95rem; margin: 0 0 13px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { border: 1px solid rgba(255,255,255,.13); background: rgba(255,255,255,.04); border-radius: 999px; padding: 6px 10px; color: #d9deea; font-size: .78rem; }
+    .projects { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .project { min-height: 330px; display: flex; flex-direction: column; overflow: hidden; transition: transform .28s ease, border-color .28s ease; }
+    .project:hover { transform: translateY(-7px); border-color: rgba(182,255,92,.6); }
+    .project-art { height: 150px; border-radius: 15px; display: grid; place-items: center; margin-bottom: 23px; overflow: hidden; position: relative; background: linear-gradient(135deg, rgba(139,123,255,.28), rgba(182,255,92,.1)); }
+    .project-art::before { content: ""; position: absolute; width: 160px; height: 160px; border: 1px solid rgba(255,255,255,.28); border-radius: 35px; transform: rotate(35deg); transition: transform .5s ease; }
+    .project:hover .project-art::before { transform: rotate(55deg) scale(1.12); }
+    .project-art span { z-index: 1; font: 800 1.05rem ui-monospace, monospace; color: var(--accent); background: rgba(11,13,18,.8); padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; }
+    .project h3 { font-size: 1.2rem; margin: 0 0 8px; letter-spacing: -.03em; }
+    .project p { color: var(--muted); font-size: .91rem; margin: 0 0 18px; }
+    .project .chips { margin-top: auto; }
+    .project-link { color: var(--accent); font-size: .85rem; font-weight: 750; margin-top: 19px; display: inline-flex; gap: 8px; align-items: center; }
+    .timeline { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .timeline-item { position: relative; padding-left: 26px; }
+    .timeline-item::before { content: ""; position: absolute; left: 0; top: 7px; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 5px rgba(182,255,92,.12); }
+    .timeline-item h3 { margin: 0 0 4px; font-size: 1.05rem; }
+    .timeline-item p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .contact-panel { display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 30px; padding: clamp(28px, 6vw, 60px); background: linear-gradient(125deg, rgba(139,123,255,.19), rgba(18,22,32,.92) 55%, rgba(182,255,92,.08)); }
+    .contact-panel h2 { margin: 12px 0; font-size: clamp(2.2rem, 5vw, 4.4rem); line-height: 1; letter-spacing: -.07em; }
+    .contact-panel p { color: var(--muted); max-width: 520px; }
+    .contact-links { display: grid; gap: 11px; }
+    .contact-links a { padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; transition: background .2s ease, border-color .2s ease; }
+    .contact-links a:hover { background: rgba(182,255,92,.08); border-color: var(--accent); }
+    footer { border-top: 1px solid var(--line); padding: 25px 0; color: var(--muted); font-size: .82rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .reveal { animation: rise-in .8s both; }
+    .delay-1 { animation-delay: .12s; } .delay-2 { animation-delay: .24s; }
+    @keyframes rise-in { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes float-in { from { opacity: 0; transform: translateY(20px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+    @media (max-width: 850px) {
+      .hero { grid-template-columns: 1fr; padding-top: 70px; gap: 28px; }
+      .visual { min-height: 360px; }
+      .about-grid, .contact-panel { grid-template-columns: 1fr; }
+      .projects { grid-template-columns: repeat(2, 1fr); }
+      .section-head { align-items: start; flex-direction: column; }
+    }
+    @media (max-width: 600px) {
+      .wrap { width: min(100% - 28px, var(--max)); }
+      nav { min-height: 68px; }
+      .nav-links { gap: 12px; font-size: .78rem; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero { min-height: auto; padding-block: 70px 45px; }
+      h1 { font-size: clamp(3rem, 16vw, 5rem); }
+      section { padding-block: 60px; }
+      .projects, .timeline, .skill-groups { grid-template-columns: 1fr; }
+      .project { min-height: 300px; }
+      .visual { min-height: 330px; }
+      .orbit { width: 300px; }
+      .tag-one { right: 0; } .tag-two { left: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="nav-shell">
+    <nav class="wrap" aria-label="Main navigation">
+      <a class="brand" href="#home">vikas<span>.</span></a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#journey">Journey</a>
+        <a class="nav-cta" href="#contact">Let's connect ↗</a>
+      </div>
+    </nav>
+  </div>
+
+  <main id="main">
+    <header class="hero wrap" id="home">
+      <div class="reveal">
+        <div class="eyebrow">Computer Science Student · Class of 2027</div>
+        <h1>Curious mind.<br><span class="gradient-text">Creative code.</span></h1>
+        <p class="hero-copy">Hi, I'm <strong>Vikas Rajput</strong> — a third-year B.Sc. Computer Science student who enjoys turning ideas into useful, thoughtful digital experiences. I'm learning, building, and looking for opportunities to grow with a great team.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">Explore my work <span aria-hidden="true">↘</span></a>
+          <a class="btn" href="#contact">Get in touch <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="hero-meta">
+          <div><strong>01 / Learn</strong>Stay curious</div>
+          <div><strong>02 / Build</strong>Learn by doing</div>
+          <div><strong>03 / Improve</strong>Iterate with intent</div>
+        </div>
+      </div>
+      <div class="visual" aria-label="Decorative profile card">
+        <div class="orbit"></div>
+        <div class="floating-tag tag-one">✦ Open to opportunities</div>
+        <div class="floating-tag tag-two">{" "}HTML · CSS · Ideas</div>
+        <div class="profile-card">
+          <div class="card-top"><span>PORTFOLIO / 2026</span><span>✳</span></div>
+          <div class="avatar" aria-hidden="true">VR</div>
+          <h2>Vikas Rajput</h2>
+          <p>B.Sc. Computer Science · Year 3</p>
+          <div class="code-chip">&lt; building my next chapter /&gt;</div>
+        </div>
+      </div>
+    </header>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">A little about me</div><h2>Building skills.<br>Finding my edge.</h2></div>
+          <p>I'm at the beginning of my professional journey, focused on developing strong fundamentals and creating projects that solve real problems.</p>
+        </div>
+        <div class="about-grid">
+          <article class="panel about-highlight">
+            <p class="big-quote">“Good technology starts with curiosity and gets better with every iteration.”</p>
+            <p class="muted">I enjoy exploring how things work, breaking challenges into smaller steps, and improving through hands-on practice. I'm excited to bring that mindset to internships and entry-level opportunities.</p>
+          </article>
+          <article class="panel">
+            <h3 style="margin-top:0">What I'm looking for</h3>
+            <p class="muted">A chance to contribute, learn from experienced developers, collaborate with a team, and turn classroom concepts into practical experience.</p>
+            <div class="chips">
+              <span class="chip">Internship opportunities</span><span class="chip">Junior developer roles</span><span class="chip">Collaborative projects</span><span class="chip">Continuous learning</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">My toolkit</div><h2>Skills in progress.</h2></div>
+          <p>Keep this section honest and update it as you gain confidence. Remove any technology you haven't worked with yet.</p>
+        </div>
+        <div class="skill-groups">
+          <article class="skill-group"><h3>Web development</h3><div class="chips"><span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">Responsive design</span><span class="chip">CSS animations</span></div></article>
+          <article class="skill-group"><h3>Programming</h3><div class="chips"><span class="chip">[Add your language]</span><span class="chip">[Add another language]</span><span class="chip">Problem solving</span></div></article>
+          <article class="skill-group"><h3>Tools & workflow</h3><div class="chips"><span class="chip">Git / GitHub</span><span class="chip">VS Code</span><span class="chip">[Add tools you use]</span></div></article>
+          <article class="skill-group"><h3>Computer science</h3><div class="chips"><span class="chip">OOP</span><span class="chip">DBMS</span><span class="chip">Data structures</span><span class="chip">[Add coursework]</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">Selected work</div><h2>Projects with purpose.</h2></div>
+          <p>Replace these starter cards with your real projects, what you built, the technologies used, and links to the code or live demo.</p>
+        </div>
+        <div class="projects">
+          <article class="panel project">
+            <div class="project-art"><span>01 / WEB</span></div>
+            <h3>Personal Portfolio</h3>
+            <p>A responsive portfolio to introduce yourself, present your skills, and make it easy for recruiters to contact you.</p>
+            <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">Responsive UI</span></div>
+            <a class="project-link" href="#contact">Add repository link ↗</a>
+          </article>
+          <article class="panel project">
+            <div class="project-art"><span>02 / BUILD</span></div>
+            <h3>[Your Project Name]</h3>
+            <p>Explain the problem this project solves, the feature you are proud of, and your specific contribution.</p>
+            <div class="chips"><span class="chip">[Technology]</span><span class="chip">[Technology]</span></div>
+            <a class="project-link" href="#contact">Add repository link ↗</a>
+          </article>
+          <article class="panel project">
+            <div class="project-art"><span>03 / EXPLORE</span></div>
+            <h3>[Your Project Name]</h3>
+            <p>Describe the goal, a challenge you overcame, and what you learned while developing this project.</p>
+            <div class="chips"><span class="chip">[Technology]</span><span class="chip">[Technology]</span></div>
+            <a class="project-link" href="#contact">Add live demo / code ↗</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="journey">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="eyebrow">The journey so far</div><h2>Learning by doing.</h2></div>
+          <p>Your journey matters even before your first full-time role. Add coursework, hackathons, certificates, volunteering, or team projects here.</p>
+        </div>
+        <div class="panel timeline">
+          <div class="timeline-item"><h3>B.Sc. Computer Science — Year 3</h3><p>Currently studying · [College / University]</p><p>Building a foundation in programming, computing concepts, and software development.</p></div>
+          <div class="timeline-item"><h3>Personal learning & projects</h3><p>Ongoing</p><p>Practising through small builds, exploring tools, and documenting what I learn.</p></div>
+          <div class="timeline-item"><h3>[Certificate / Workshop]</h3><p>[Year] · [Provider]</p><p>Add a course, workshop, hackathon, or other relevant learning milestone.</p></div>
+          <div class="timeline-item"><h3>Next milestone</h3><p>Internship / collaborative project</p><p>Ready to contribute, get feedback, and grow through practical experience.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="panel contact-panel">
+          <div>
+            <div class="eyebrow">Have an opportunity?</div>
+            <h2>Let's make<br>something useful.</h2>
+            <p>I'm happy to connect about internships, entry-level opportunities, student collaborations, or interesting projects.</p>
+            <a class="btn btn-primary" href="mailto:your.email@example.com">Email me ↗</a>
+          </div>
+          <div class="contact-links">
+            <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn <span style="float:right">↗</span><br><small class="muted">Add your profile URL</small></a>
+            <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub <span style="float:right">↗</span><br><small class="muted">Add your username</small></a>
+            <a href="#home">Back to top <span style="float:right">↑</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner"><span>© 2026 Vikas Rajput. Built with HTML & CSS.</span><span>Designed to keep learning in motion ✳</span></div>
+  </footer>
+</body>
+</html>
